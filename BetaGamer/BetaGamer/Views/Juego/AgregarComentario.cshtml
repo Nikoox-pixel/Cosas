@@ -1,0 +1,70 @@
+﻿@model BetaGamer.Models.Comentario
+
+@{
+    ViewBag.Title = "AgregarComentario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AgregarComentario</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Comentario</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            <p>Datos del Juego</p>
+            <div class="panel-title">Id</div>
+            <div class="text-left">
+                <!--Este campo será utilizado para poder recibir y pasar en el post el id del
+            objeto al controlador-->
+                <input type="text" name="JuegoID" id="JuegoID" value="@ViewBag.Juego.Id" />
+            </div>
+            <table class="table">
+                <tr>
+                    <th>Titulo</th>
+                    <th>FechaPublicacion</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>ViewBag.Juego.Titulo</td>
+                    <td>@{ String.Format("{0:g}", ViewBag.Juego.FechaPublicacion);}</td>
+                    <td>@ViewBag.Juego.Descripción</td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Texto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Texto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Texto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Ver Comentarios", "Details",new { id=ViewBag.Juego.Id})
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

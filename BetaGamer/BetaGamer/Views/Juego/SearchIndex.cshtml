@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BetaGamer.Models.Juego>
+
+@{
+    ViewBag.Title = "SearchIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SearchIndex</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create");
+</p>
+@using (Html.BeginForm())
+{ <p> Palabra clave a buscar en el nombre: @Html.TextBox("searchString")<br /> 
+    <input type="submit" value="Filtrar" />
+    </p> 
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaPublicacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripción)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaPublicacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripción)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
+            @Html.ActionLink("Agregar Comentario", "AgregarComentario", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
